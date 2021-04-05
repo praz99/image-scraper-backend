@@ -6,7 +6,11 @@ class ScraperController < ApplicationController
     url = url_params[:url]
     if Validate.valid_url?(url)
       images = parse_url(url)
-      render json: images
+      if !images.nil?
+        render json: { images: images }
+      else
+        render json: { message: 'Oops! Looks like there are no images present in this webpage or maybe there is some error in the URL you entered. Please check it and try again.'}
+      end
     else
       render json: { message: 'This is not a valid URL.' }
     end
@@ -27,6 +31,6 @@ class ScraperController < ApplicationController
   end
 
   def url_params
-    params.permit(:url)
+    params.require(:scraper).permit(:url)
   end
 end
