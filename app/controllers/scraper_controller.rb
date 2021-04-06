@@ -9,7 +9,9 @@ class ScraperController < ApplicationController
       if !images.nil?
         render json: { images: images }
       else
-        render json: { message: 'Oops! Looks like there are no images present in this webpage or maybe there is some error in the URL you entered. Please check it and try again.'}
+        # rubocop:disable Layout/LineLength
+        render json: { message: 'Oops! Looks like there are no images present in this webpage or maybe there is some error in the URL you entered. Please check it and try again.' }
+        # rubocop:enable Layout/LineLength
       end
     else
       render json: { message: 'This is not a valid URL.' }
